@@ -5,6 +5,7 @@ from src.setup_database import setup_database
 from src.insert import insert_author
 from src.update import update_author
 from src.procedures import call_stored_procedure
+from src.config.config import SQL_SELECT_ALL_AUTHORS
 
 # Configure logging
 logging.basicConfig(
@@ -48,7 +49,7 @@ def display_authors():
     cursor = None
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Authors")
+        cursor.execute(SQL_SELECT_ALL_AUTHORS)
         authors = cursor.fetchall()
         
         if authors:

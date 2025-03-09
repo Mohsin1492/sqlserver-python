@@ -1,5 +1,6 @@
 import logging
 from utils.connect import create_connection
+from src.config.config import SQL_CREATE_AUTHOR_TABLE, SQL_CREATE_STORED_PROCEDURE
 
 def setup_database():
     """Create the necessary database tables if they don't exist"""
@@ -13,32 +14,10 @@ def setup_database():
         cursor = conn.cursor()
         
         # Create Authors table
-        cursor.execute("""
-        IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Authors')
-        BEGIN
-            CREATE TABLE Authors (
-                AuthorID INT IDENTITY(1,1) PRIMARY KEY,
-                FirstName NVARCHAR(100) NOT NULL,
-                LastName NVARCHAR(100) NOT NULL,
-                BirthDate DATE NULL
-            )
-        END
-        """)
+        cursor.execute(SQL_CREATE_AUTHOR_TABLE)
 
         # Check if the stored procedure already exists, if not create it
-        cursor.execute("""
-        IF NOT EXISTS (SELECT * FROM sys.procedures WHERE name = 'GetAuthorById')
-        BEGIN
-            EXEC('
-                CREATE PROCEDURE GetAuthorById
-                    @AuthorID INT
-                AS
-                BEGIN
-                    SELECT * FROM Authors WHERE AuthorID = @AuthorID
-                END
-            ')
-        END
-        """)
+        cursor.execute(SQL_CREATE_STORED_PROCEDURE)
         
         conn.commit()
         logging.info("Database schema setup completed successfully")
