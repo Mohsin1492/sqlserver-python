@@ -1,6 +1,6 @@
 import logging
 from utils.connect import create_connection
-from src.config.config import SQL_CREATE_AUTHOR_TABLE, SQL_CREATE_STORED_PROCEDURE
+from src.config.config import SQL_CREATE_AUTHOR_TABLE
 
 def setup_database():
     """Create the necessary database tables if they don't exist"""
@@ -15,9 +15,6 @@ def setup_database():
         
         # Create Authors table
         cursor.execute(SQL_CREATE_AUTHOR_TABLE)
-
-        # Check if the stored procedure already exists, if not create it
-        cursor.execute(SQL_CREATE_STORED_PROCEDURE)
         
         conn.commit()
         logging.info("Database schema setup completed successfully")
@@ -32,7 +29,3 @@ def setup_database():
             cursor.close()
         if conn:
             conn.close()
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s:%(message)s')
-    setup_database()
