@@ -24,6 +24,21 @@ def setup_database():
             )
         END
         """)
+
+        # Check if the stored procedure already exists, if not create it
+        cursor.execute("""
+        IF NOT EXISTS (SELECT * FROM sys.procedures WHERE name = 'GetAuthorById')
+        BEGIN
+            EXEC('
+                CREATE PROCEDURE GetAuthorById
+                    @AuthorID INT
+                AS
+                BEGIN
+                    SELECT * FROM Authors WHERE AuthorID = @AuthorID
+                END
+            ')
+        END
+        """)
         
         conn.commit()
         logging.info("Database schema setup completed successfully")

@@ -3,6 +3,8 @@ import sys
 from utils.connect import create_connection
 from src.setup_database import setup_database
 from src.insert import insert_author
+from src.update import update_author
+from src.procedures import call_stored_procedure
 
 # Configure logging
 logging.basicConfig(
@@ -26,8 +28,15 @@ def main():
         logging.error("Failed to insert author")
         return
     
+    # Update the author
+    update_author(1, "Jane", "Smith", "1981-01-01")
+    
     # Display all authors in the database
     display_authors()
+
+    # Call the stored procedure
+    result = call_stored_procedure("GetAuthorById", 1)
+    logging.info(f"Stored procedure result: {result}")  
 
 def display_authors():
     """Query and display all authors in the database"""

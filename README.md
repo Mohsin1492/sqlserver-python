@@ -25,6 +25,8 @@ This project uses **pyodbc** with **ODBC Driver 17 for SQL Server**, which is th
 │   ├── __init__.py        # Package initialization
 │   ├── setup_database.py  # Database schema creation
 │   ├── insert.py          # Data insertion functions
+│   ├── update.py          # Data update functions
+│   ├── procedures.py      # Stored procedure calling
 │   └── ...                # Other database operations
 └── utils/                 # Utility package
     ├── __init__.py        # Package initialization
@@ -95,9 +97,11 @@ python main.py
 ```
 
 This will:
-1. Create the necessary database schema
+1. Create the necessary database schema and stored procedures
 2. Insert a sample author record
-3. Display all authors in the database
+3. Update an existing author record
+4. Call a stored procedure to retrieve an author by ID
+5. Display all authors in the database
 
 ## Troubleshooting
 

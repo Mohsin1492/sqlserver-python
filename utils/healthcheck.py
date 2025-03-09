@@ -1,5 +1,5 @@
 import logging
-from connect import create_connection
+from utils.connect import create_connection
 
 def healthcheck():
     conn = create_connection()
