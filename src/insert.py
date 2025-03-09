@@ -3,7 +3,14 @@ from utils.connect import create_connection
 
 
 def insert_author(first_name: str, last_name: str, birth_date: str) -> int | None:
-    """Insert an author into the database and return the author ID"""
+    """Insert an author into the database and return the author ID
+    Args:
+        first_name (str): The first name of the author
+        last_name (str): The last name of the author
+        birth_date (str): The birth date of the author
+    Returns:
+        int | None: The author ID if the insert was successful, None otherwise
+    """
     
     # Connect to the database
     conn = create_connection()
@@ -35,3 +42,6 @@ def insert_author(first_name: str, last_name: str, birth_date: str) -> int | Non
         if conn:
             conn.close()
 
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    insert_author("John", "Doe", "1990-01-01")
